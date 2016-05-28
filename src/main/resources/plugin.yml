@@ -1,0 +1,8 @@
+name: NameChecker
+main: me.grantswim4.namechecke.Main
+version: 1.0
+commands:
+   check:
+      description: Checks the history of a player's name.
+      usage: /<command> [player]
+      permission: NameChecker.Check
