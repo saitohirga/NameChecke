@@ -23,9 +23,10 @@ public class CheckCommand implements CommandExecutor {
                 sender.sendMessage("Target: " + ply.getDisplayName() + "(" + ply.getUniqueId() + ")");
                 sender.sendMessage("Website: ");
                 sender.sendMessage("https://api.mojang.com/user/profiles/" + ply.getUniqueId() + "/names");
-
+                  
                 sender.sendMessage("Attempting InGame Results...");
                 try {
+                    ply.getUniqueId.replaceAll("[\\s\\-()]", "");
                     String tar = mojangapi.readJsonFromUrl("https://api.mojang.com/user/profiles/" + ply.getUniqueId() + "/names").toString();
                     for (String line : "},{".split(tar)) {
                         sender.sendMessage(line);
