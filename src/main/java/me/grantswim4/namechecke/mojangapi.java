@@ -1,35 +1,25 @@
 package me.grantswim4.namechecke;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.*;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
-import java.nio.charset.Charset;
 
 /**
  * Created by Grant on 5/21/2016.
  */
 public class mojangapi {
 
-    private static String readAll(Reader rd) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
-        return sb.toString();
-    }
-
-    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
-        } finally {
-            is.close();
-        }
-    }
+	public static JsonObject readJsonFromUrl(String url) throws IOException, JsonSyntaxException {
+		InputStream is = new URL(url).openStream();
+		try {
+			JsonObject json = new JsonObject();
+			return json;
+		} finally {
+			is.close();
+		}
+	}
 }
