@@ -5,8 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
 
@@ -23,7 +22,8 @@ public class CheckCommand implements CommandExecutor {
 			Player ply = Bukkit.getPlayer(args[0]);
 
 			uuidWOH = ply.getUniqueId().toString();
-                        uuidWOH.replaceAll("[\\s\\-()]", "");
+
+			uuidWOH.replaceAll("[\\s\\-()]", "");
 
 			if (ply != null) {
 				sender.sendMessage("Target: " + ply.getDisplayName() + "(" + ply.getUniqueId() + ")");
@@ -36,7 +36,8 @@ public class CheckCommand implements CommandExecutor {
 					String tar = mojangapi.readJsonFromUrl("https://api.mojang.com/user/profiles/" + uuidWOH + "/names").toString();
 					for (String line : "},{".split(tar)) {
 						sender.sendMessage(line);
-				} catch (JsonIOException e) {
+					}
+				} catch (JsonSyntaxException e) {
 					sender.sendMessage("Failed to grab ingame results!");
 					e.printStackTrace();
 				} catch (IOException e) {
