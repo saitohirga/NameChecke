@@ -23,20 +23,19 @@ public class CheckCommand implements CommandExecutor {
 			Player ply = Bukkit.getPlayer(args[0]);
 
 			uuidWOH = ply.getUniqueId().toString();
+                        uuidWOH.replaceAll("[\\s\\-()]", "");
 
 			if (ply != null) {
 				sender.sendMessage("Target: " + ply.getDisplayName() + "(" + ply.getUniqueId() + ")");
 				sender.sendMessage("Website: ");
-				sender.sendMessage("https://api.mojang.com/user/profiles/" + ply.getUniqueId() + "/names");
+				sender.sendMessage("https://api.mojang.com/user/profiles/" + uuidWOH + "/names");
 
 				sender.sendMessage("Attempting InGame Results...");
 				try {
 
-					uuidWOH.replaceAll("[\\s\\-()]", "");
 					String tar = mojangapi.readJsonFromUrl("https://api.mojang.com/user/profiles/" + uuidWOH + "/names").toString();
 					for (String line : "},{".split(tar)) {
 						sender.sendMessage(line);
-					}
 				} catch (JsonIOException e) {
 					sender.sendMessage("Failed to grab ingame results!");
 					e.printStackTrace();
